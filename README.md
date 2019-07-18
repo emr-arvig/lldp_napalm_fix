@@ -1,6 +1,6 @@
 # IOSXR driver LLDP output invalid with spaces in names
 
-Napalm IOSXR driver LLDP method is having a bit of trouble parsing LLDP in our environment when there are spaces in either the local interface or the remote port description. 
+Napalm IOSXR driver LLDP method is having a bit of trouble parsing LLDP in our environment when there are spaces in either the local interface or the remote port description. When there are spaces in the Device ID, they key is incorrect. When there are spaces in the remote port ID name we get incomplete information.
 
 # Sample pseudo-router output
 
@@ -78,7 +78,7 @@ I did a quick and dirty hack by using `re.split()` on [782](https://github.com/n
 
     re.split('\s\s+', n)
 
-This isn't the *best*way to do it since again if there is more than one space it will also fail.
+This isn't the *best* way to do it since again if there is more than one space it will also fail.
 
 I hate adding regex as much as the next person but this was what was the most reliable for me in testing:
 
@@ -152,7 +152,7 @@ I hate adding regex as much as the next person but this was what was the most re
         ]
     }
 
-There may be a better more pythonic way of doing this - I am by no means a python expert but this is what we are using for now as a shim. I have tested this using the output from a handful of IOSXR routers we have and it has applied successfully to all of them.
+There may be a better more pythonic way of doing this - I am by no means a python or regex expert but this is what we are using for now as a shim. I have tested this using the output from a handful of IOSXR routers we have and it has applied successfully to all of them.
 
 The reason we needed to do this was essentially to get Netbox up and running and we were unable to use the LLDP connection methods without either sorting this out in Napalm or running through and fixing all the local and remote ports in our network (and, being an ISP, we only have access to a limited number of remote devices to make changes anyway). 
 
