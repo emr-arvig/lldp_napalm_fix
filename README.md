@@ -1,6 +1,6 @@
 # IOSXR driver LLDP output invalid with spaces in names
 
-Napalm IOSXR driver LLDP method is having a bit of trouble parsing LLDP in our environment when there are spaces in either the local interface or the remote port description. When there are spaces in the Device ID, they key is incorrect. When there are spaces in the remote port ID name we get incomplete information.
+Napalm IOSXRDriver method `get_lldp_neighbors()` is having a bit of trouble parsing LLDP in our environment when there are spaces in either the local interface or the remote port description. When there are spaces in the Device ID, they key is incorrect. When there are spaces in the remote port ID name we get incomplete information.
 
 # Sample pseudo-router output
 
