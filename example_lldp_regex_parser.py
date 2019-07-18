@@ -41,8 +41,10 @@ del lldp
 
 lldp = {}
 
+LLDP_REGEX = re.compile(r'(^.+?\s+)((Gi\d{0,3}|Te\d|Hu\d)(\/[0-9]{0,4})+)\s+\d{2,3}\s+.{1,3}\s+(.+)')
+
 for n in sh_lldp:
-    data = re.match('(^.+?\s+)((Gi\d{0,3}|Te\d|Hu\d)(\/[0-9]{0,4})+)\s+\d{2,3}\s+.{1,3}\s+(.+)', n)
+    data = re.match(LLDP_REGEX, n)
     if not data:
         continue
     data_groups = data.groups()
@@ -64,12 +66,14 @@ print(json.dumps(lldp, indent=4))
 '''
 def get_lldp_neighbors(self):
 
+    LLDP_REGEX = re.compile(r'(^.+?\s+)((Gi\d{0,3}|Te\d|Hu\d)(\/[0-9]{0,4})+)\s+\d{2,3}\s+.{1,3}\s+(.+)')
+
     # init result dict
     lldp = {}
     sh_lldp = self.device.show_lldp_neighbors().splitlines()[5:-3]
 
     for n in sh_lldp:
-        data = re.match('(^.+?\s+)((Gi\d{0,3}|Te\d|Hu\d)(\/[0-9]{0,4})+)\s+\d{2,3}\s+.{1,3}\s+(.+)', n)
+        data = re.match(LLDP_REGEX, n)
         if not data:
             continue
         data_groups = data.groups()
