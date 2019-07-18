@@ -796,6 +796,8 @@ class IOSXRDriver(NetworkDriver):
                 }
             )
 
+        return lldp
+
     def get_lldp_neighbors_detail(self, interface=""):
 
         lldp_neighbors = {}
